@@ -1,0 +1,31 @@
+//these are the following namespaces needed
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class SceneTransitions : MonoBehaviour
+{
+    // fields for placing the plane animation into
+    // and for the scene that is being transitioned to
+    public Animator transitionAnim;
+    public string sceneName;
+
+    // this function runs the loadscene() function on 
+    // the press of a space bar
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+            StartCoroutine(LoadScene());
+    }
+
+    // this function runs the animation and waits for the "end" 
+    // trigger (spacebar) in order use the scenemanager object.
+    IEnumerator LoadScene()
+    {
+        transitionAnim.SetTrigger("end");
+        yield return new WaitForSeconds(1.5f);
+        SceneManager.LoadScene(sceneName);
+    }
+}
